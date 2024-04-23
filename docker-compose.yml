@@ -13,7 +13,7 @@ services:
       - database
     environment:
       - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
-      - spring.datasource.url=jdbc:mysql://database:3306/signer-db
+      - spring.datasource.url=jdbc:mysql://database:3307/signer-db
       - spring.datasource.username=root
       - spring.datasource.password=signer123
       - spring.jpa.show-sql=true
@@ -22,10 +22,10 @@ services:
       - server.error.include-message=always
 
   database:
-    image: mysql:latest
+    image:  mysql:latest
     container_name: signer-database
     environment:
       MYSQL_ROOT_PASSWORD: signer123
       MYSQL_DATABASE: signer-db
     ports:
-      - "3307:3307"
+      - "3307:3306"

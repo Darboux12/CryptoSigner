@@ -64,7 +64,7 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
-                    <mainClass>edu.crypto.CryptoSigner</mainClass>
+                    <mainClass>edu.crypto.api.CryptoSigner</mainClass>
                     <layout>JAR</layout>
                     <executable>true</executable>
                 </configuration>
