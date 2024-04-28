@@ -1,12 +1,13 @@
 package edu.crypto.core.signature.model.dto;
 
-import lombok.Builder;
+import java.util.Set;
 
-@Builder
-public record KeyPairDto(
+public record CryptoKeyPairEntityDto (
         Long id,
         String alias,
         String author,
         String publicKey,
-        String privateKey
-) {}
+        String privateKey,
+        Set<String> signatures
+) {
+}

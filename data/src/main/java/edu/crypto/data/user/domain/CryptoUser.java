@@ -1,6 +1,7 @@
 package edu.crypto.data.user.domain;
 
 import edu.crypto.data.role.domain.Role;
+import edu.crypto.data.signature.domain.CryptoKeyPair;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,6 +43,9 @@ public class CryptoUser {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private Set<CryptoKeyPair> keyPairs = new HashSet<>();
 
     public void addRoles(Set<Role> roles) {
         roles.forEach(this::addRole);

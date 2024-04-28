@@ -1,4 +1,4 @@
-package edu.crypto.core.signature.model.dto;
+package edu.crypto.core.signature.model.common;
 
 public enum ECCurveType {
     SECP256R1("secp256r1"),

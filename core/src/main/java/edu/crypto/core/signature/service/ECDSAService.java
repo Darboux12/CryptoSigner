@@ -1,6 +1,7 @@
 package edu.crypto.core.signature.service;
 
-import edu.crypto.core.signature.model.dto.ECCurveType;
+import edu.crypto.core.signature.mapper.SignatureMapper;
+import edu.crypto.core.signature.model.common.ECCurveType;
 import org.springframework.stereotype.Service;
 
 import java.security.KeyPair;
@@ -35,20 +36,28 @@ public class ECDSAService {
     }
 
     public static void main(String[] args) {
+
         try {
             ECDSAService generator = new ECDSAService();
             KeyPair keyPair = generator.generateKeyPair(ECCurveType.SECP256R1);
+
+            String token = SignatureMapper.mapPrivateKeyToSafeString(keyPair.getPrivate());
+            PrivateKey privateKey = SignatureMapper.mapSafeStringToPrivateKey(token);
+
+            String token2 = SignatureMapper.mapPublicKeyToSafeString(keyPair.getPublic());
+            PublicKey publicKey = SignatureMapper.mapSafeStringToPublicKey(token2);
+
 
             // Przykładowe dane do podpisania
             String message = "Test message";
             byte[] messageBytes = message.getBytes();
 
             // Podpisywanie danych
-            byte[] signature = generator.signData(messageBytes, keyPair.getPrivate());
+            byte[] signature = generator.signData(messageBytes, privateKey);
             System.out.println("Signature: " + java.util.Base64.getEncoder().encodeToString(signature));
 
             // Weryfikacja podpisu
-            boolean isCorrect = generator.verifySignature(messageBytes, signature, keyPair.getPublic());
+            boolean isCorrect = generator.verifySignature(messageBytes, signature, publicKey);
             System.out.println("Signature verified: " + isCorrect);
         } catch (Exception e) {
             e.printStackTrace();

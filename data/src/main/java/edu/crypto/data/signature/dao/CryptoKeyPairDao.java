@@ -11,5 +11,6 @@ public interface CryptoKeyPairDao extends JpaRepository<CryptoKeyPair, Long>  {
 
     Optional<CryptoKeyPair> findByAlias(String alias);
 
+    Optional<CryptoKeyPair> findByPrivateKey(String privateKey);
 
 }

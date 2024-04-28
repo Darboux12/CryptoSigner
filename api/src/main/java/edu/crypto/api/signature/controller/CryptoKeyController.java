@@ -1,10 +1,11 @@
-package edu.crypto.api.signature;
+package edu.crypto.api.signature.controller;
 
+import edu.crypto.api.signature.dto.ApiKeyGenerationRequest;
 import edu.crypto.core.security.util.JwtTokenUtil;
 import edu.crypto.core.signature.common.KeyGenerationStartDto;
-import edu.crypto.core.signature.model.dto.ECCurveType;
+import edu.crypto.core.signature.model.common.ECCurveType;
 import edu.crypto.core.signature.model.dto.KeyGenerationRequest;
-import edu.crypto.core.signature.model.dto.KeyPairDto;
+import edu.crypto.core.signature.model.dto.CryptoKeyPairDto;
 import edu.crypto.core.signature.service.SignatureService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
@@ -27,18 +28,18 @@ public class CryptoKeyController {
     public ResponseEntity<KeyGenerationStartDto> generateKey(@Validated @RequestBody ApiKeyGenerationRequest request, HttpServletRequest httpServletRequest) throws Exception {
         String token = jwtTokenUtil.getTokenFromCookie(httpServletRequest);
         String author = jwtTokenUtil.getUsernameFromToken(token);
-        var response = signatureService.generateKeyPair(mapApiToServiceRequest(request), author);
+        var response = signatureService.generateKeyPair(mapApiKeyToServiceRequest(request), author);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("find")
-    public ResponseEntity<KeyPairDto> getKeyPairByAlias(@RequestParam("alias") String alias) {
+    public ResponseEntity<CryptoKeyPairDto> getKeyPairByAlias(@RequestParam("alias") String alias) {
         var response = signatureService.findKeyPairByAlias(alias);
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("find/id")
-    public ResponseEntity<KeyPairDto> getKeyPairById(@RequestParam("id") Long id) {
+    public ResponseEntity<CryptoKeyPairDto> getKeyPairById(@RequestParam("id") Long id) {
         var response = signatureService.findKeyPairById(id);
         return ResponseEntity.ok(response);
     }
@@ -55,7 +56,7 @@ public class CryptoKeyController {
         return ResponseEntity.ok(response);
     }
 
-    private KeyGenerationRequest mapApiToServiceRequest(ApiKeyGenerationRequest request) {
+    private KeyGenerationRequest mapApiKeyToServiceRequest(ApiKeyGenerationRequest request) {
         return KeyGenerationRequest
                 .builder()
                 .keyAlias(request.alias())

@@ -8,17 +8,17 @@ import java.util.stream.Collectors;
 
 public class UserMapper {
 
-    public static UserResponse mapJcaUserToResponse(CryptoUser user) {
+    public static UserResponse mapCryptoUserToResponse(CryptoUser user) {
         return UserResponse
                 .builder()
                 .id(user.getId())
                 .username(user.getUsername())
                 .email(user.getEmail())
-                .roles(mapJcaRoleToRole(user.getRoles()))
+                .roles(mapCryptoRoleToRole(user.getRoles()))
                 .build();
     }
 
-    private static Set<String> mapJcaRoleToRole(Set<Role> roles) {
+    private static Set<String> mapCryptoRoleToRole(Set<Role> roles) {
         return roles.stream().map(Role::getName).collect(Collectors.toSet());
     }
 
