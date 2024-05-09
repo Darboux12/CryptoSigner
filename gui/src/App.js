@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navigation from './components/navigation/Navigation';
 import Login from './components/auth/Login';
 import KeyManagement from './components/keys/KeyManagement';
 import SignatureManagement from './components/signatures/SignatureManagement';
@@ -9,6 +10,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <Navigation /> {/* Navi w aplikacji */}
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/manage-keys" element={<KeyManagement />} />
