@@ -15,7 +15,12 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/manage-keys" element={<KeyManagement />} />
           <Route path="/manage-signatures" element={<SignatureManagement />} />
-          <Route path="/" element={<h1>Welcome to the Crypto Management System</h1>} />
+          <Route path="/" element={
+            <div>
+              <h1>Welcome to the Crypto Management System</h1>
+              <img src="/logo1.png" alt="Welcome" style={{ width: '100%', maxWidth: '600px', height: 'auto' }} />
+            </div>
+          } />
         </Routes>
       </div>
     </Router>
