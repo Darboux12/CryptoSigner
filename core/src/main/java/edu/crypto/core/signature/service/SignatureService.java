@@ -18,10 +18,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.util.Base64;
-
 @Service
 @AllArgsConstructor
 public class SignatureService {
@@ -32,14 +28,6 @@ public class SignatureService {
     private CryptoSignatureDao signatureDao;
     private CryptoUserDao userDao;
     private ECDSAService ecdsaService;
-
-    private String mapPublicKeyToSafeString(PublicKey publicKey) {
-        return Base64.getEncoder().encodeToString(publicKey.getEncoded());
-    }
-
-    private String mapPrivateKeyToSafeString(PrivateKey privateKey) {
-        return Base64.getEncoder().encodeToString(privateKey.getEncoded());
-    }
 
     public KeyGenerationStartDto generateKeyPair(KeyGenerationRequest request, String username) throws Exception {
         logger.info("Generating key pair for request: " + request);
@@ -87,7 +75,6 @@ public class SignatureService {
                 .map(x -> x.getState().name())
                 .orElseThrow(() -> new EntityNotFoundException("KeyPair", "alias"));
     }
-
 
     public SignatureGenerationStartDto signData(SignatureGenerationRequest request) {
         logger.info("Signing data for request: " + request);
@@ -149,46 +136,5 @@ public class SignatureService {
                 SignatureMapper.mapSafeStringToPublicKey(request.publicKey())
         );
     }
-
-
-
-/*
-    public void signFile(String fileName, String signature, String metadata, String alias) {
-        KeyPairEntity keyPair = keyPairDao.findKeyPairByAlias(alias);
-        if (keyPair != null) {
-            SignatureEntity signatureEntity = new SignatureEntity();
-            signatureEntity.setFileName(fileName);
-            signatureEntity.setSignature(signature);
-            signatureEntity.setMetadata(metadata);
-            signatureEntity.setKeyPair(keyPair);
-            signatureDao.saveSignature(signatureEntity);
-        } else {
-            throw new RuntimeException("No key pair found with alias: " + alias);
-        }
-    }
-
-    public String keyPairToString(KeyPair keyPair) {
-        PublicKey pub = keyPair.getPublic();
-        PrivateKey priv = keyPair.getPrivate();
-        String publicKeyString = Base64.getEncoder().encodeToString(pub.getEncoded());
-        String privateKeyString = Base64.getEncoder().encodeToString(priv.getEncoded());
-        return publicKeyString + "," + privateKeyString;
-    }
-
-    public KeyPair stringToKeyPair(String keyPairString) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        String[] keys = keyPairString.split(",");
-        if (keys.length != 2) {
-            throw new IllegalArgumentException("Invalid key pair data");
-        }
-
-        byte[] publicKeyBytes = Base64.getDecoder().decode(keys[0]);
-        byte[] privateKeyBytes = Base64.getDecoder().decode(keys[1]);
-
-        PublicKey publicKey = KeyFactory.getInstance("EC").generatePublic(new X509EncodedKeySpec(publicKeyBytes));
-        PrivateKey privateKey = KeyFactory.getInstance("EC").generatePrivate(new PKCS8EncodedKeySpec(privateKeyBytes));
-
-        return new KeyPair(publicKey, privateKey);
-    }
-*/
 
 }
