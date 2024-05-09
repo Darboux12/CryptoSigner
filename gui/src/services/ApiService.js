@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080/signer';
+const API_BASE_URL = 'http://server:8080/signer';
 
 // Generowanie kluczy
 export const generateKeys = (alias, curveType) => {
