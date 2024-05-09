@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { generateKeys, getKeyByAlias } from '../../services/ApiService';
 
 const KeyManagement = () => {
   const [alias, setAlias] = useState('');
   const [keyInfo, setKeyInfo] = useState(null);
 
-  const generateKey = async () => {
+  const handleGenerateKey = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/signer/key/generate', { alias });
-      setKeyInfo(response.data);
+      const response = await generateKeys({ alias }); 
+      setKeyInfo(response);
     } catch (error) {
       console.error('Error generating key:', error);
     }
   };
 
-  const findKeyByAlias = async () => {
+  const handleFindKeyByAlias = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/signer/key/find?alias=${alias}`);
-      setKeyInfo(response.data);
+      const response = await getKeyByAlias(alias);
+      setKeyInfo(response);
     } catch (error) {
       console.error('Error finding key:', error);
     }
@@ -32,8 +32,8 @@ const KeyManagement = () => {
         onChange={e => setAlias(e.target.value)}
         placeholder="Enter key alias"
       />
-      <button onClick={generateKey}>Generate Key</button>
-      <button onClick={findKeyByAlias}>Find Key by Alias</button>
+      <button onClick={handleGenerateKey}>Generate Key</button>
+      <button onClick={handleFindKeyByAlias}>Find Key by Alias</button>
       {keyInfo && <div><pre>{JSON.stringify(keyInfo, null, 2)}</pre></div>}
     </div>
   );

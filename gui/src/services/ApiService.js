@@ -1,68 +1,83 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://server:8080/signer';
+// Konfiguracja globalna axios
+const api = axios.create({
+  baseURL: 'http://server:8080/signer'
+});
 
-// Generowanie kluczy
-export const generateKeys = (ApiKeyGenerationRequest) => {
-  return axios.post(`${API_BASE_URL}/key/generate`, ApiKeyGenerationRequest);
+// Funkcja generująca klucze
+export const generateKeys = async (ApiKeyGenerationRequest) => {
+  try {
+    const response = await api.post('/key/generate', ApiKeyGenerationRequest);
+    return response.data;
+  } catch (error) {
+    console.error('Error generating keys:', error.response);
+    throw error;
+  }
 };
 
-// Wyszukiwanie klucza po aliasie
-export const getKeyByAlias = (alias) => {
-  return axios.get(`${API_BASE_URL}/key/find`, { params: { alias } });
+// Funkcja wyszukująca klucz po aliasie
+export const getKeyByAlias = async (alias) => {
+  try {
+    const response = await api.get('/key/find', { params: { alias } });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching key by alias:', error.response);
+    throw error;
+  }
 };
 
-// Wyszukiwanie klucza po ID
-export const getKeyById = (id) => {
-  return axios.get(`${API_BASE_URL}/key/find/id`, { params: { id } });
+// Funkcja wyszukująca klucz po ID
+export const getKeyById = async (id) => {
+  try {
+    const response = await api.get('/key/find/id', { params: { id } });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching key by ID:', error.response);
+    throw error;
+  }
 };
 
-// Pobieranie stanu generacji klucza przez ID
-export const getGenerateKeyStateById = (id) => {
-  return axios.get(`${API_BASE_URL}/key/generate/state/id`, { params: { id } });
-};
-
-// Pobieranie stanu generacji klucza przez alias
-export const getGenerateKeyStateByAlias = (alias) => {
-  return axios.get(`${API_BASE_URL}/key/generate/state`, { params: { alias } });
-};
-
-// Podpisywanie danych jako bajty
-export const signData = (ApiSignatureGenerationRequest) => {
-  return axios.post(`${API_BASE_URL}/signature/sign`, ApiSignatureGenerationRequest);
+// Podpisywanie danych
+export const signData = async (ApiSignatureGenerationRequest) => {
+  try {
+    const response = await api.post('/signature/sign', ApiSignatureGenerationRequest);
+    return response.data;
+  } catch (error) {
+    console.error('Error signing data:', error.response);
+    throw error;
+  }
 };
 
 // Podpisywanie danych jako tekst
-export const signText = (ApiSignatureGenerationRequestText) => {
-  return axios.post(`${API_BASE_URL}/signature/sign/text`, ApiSignatureGenerationRequestText);
+export const signText = async (ApiSignatureGenerationRequestText) => {
+  try {
+    const response = await api.post('/signature/sign/text', ApiSignatureGenerationRequestText);
+    return response.data;
+  } catch (error) {
+    console.error('Error signing text:', error.response);
+    throw error;
+  }
 };
 
-// Weryfikacja podpisu danych jako bajty
-export const verifySignature = (ApiSignatureVerificationRequest) => {
-  return axios.post(`${API_BASE_URL}/signature/verify`, ApiSignatureVerificationRequest);
+// Weryfikacja podpisu danych
+export const verifySignature = async (ApiSignatureVerificationRequest) => {
+  try {
+    const response = await api.post('/signature/verify', ApiSignatureVerificationRequest);
+    return response.data;
+  } catch (error) {
+    console.error('Error verifying signature:', error.response);
+    throw error;
+  }
 };
 
 // Weryfikacja podpisu danych jako tekst
-export const verifyTextSignature = (ApiSignatureVerificationRequestText) => {
-  return axios.post(`${API_BASE_URL}/signature/verify/text`, ApiSignatureVerificationRequestText);
-};
-
-// Pobieranie podpisu po aliasie
-export const getSignatureByAlias = (alias) => {
-  return axios.get(`${API_BASE_URL}/signature/find`, { params: { alias } });
-};
-
-// Pobieranie podpisu po ID
-export const getSignatureById = (id) => {
-  return axios.get(`${API_BASE_URL}/signature/find/id`, { params: { id } });
-};
-
-// Pobieranie stanu generacji podpisu przez ID
-export const getSignatureGenerationStateById = (id) => {
-  return axios.get(`${API_BASE_URL}/signature/generate/state/id`, { params: { id } });
-};
-
-// Pobieranie stanu generacji podpisu przez alias
-export const getSignatureGenerationStateByAlias = (alias) => {
-  return axios.get(`${API_BASE_URL}/signature/generate/state`, { params: { alias } });
+export const verifyTextSignature = async (ApiSignatureVerificationRequestText) => {
+  try {
+    const response = await api.post('/signature/verify/text', ApiSignatureVerificationRequestText);
+    return response.data;
+  } catch (error) {
+    console.error('Error verifying text signature:', error.response);
+    throw error;
+  }
 };

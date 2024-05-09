@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
-import axios from 'axios'
+import { signData, verifySignature } from '../../services/ApiService';  
 
 const SignatureManagement = () => {
     const [data, setData] = useState('');
     const [signature, setSignature] = useState('');
     const [verificationResult, setVerificationResult] = useState('');
 
-    const signData = async () => {
+    const handleSignData = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/signer/signature/sign', { data });
-            setSignature(response.data.signature);
+            const response = await signData({ data });
+            setSignature(response.signature);
         } catch (error) {
             console.error('Error signing data:', error);
         }
     };
 
-    const verifySignature = async () => {
+    const handleVerifySignature = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/signer/signature/verify', {
-                data, 
-                signature
-            });
-            setVerificationResult(response.data ? "Signature is valid" : "Signature is invalid");
+            const response = await verifySignature({ data, signature });
+            setVerificationResult(response ? "Signature is valid" : "Signature is invalid");
         } catch (error) {
             console.error('Error verifying signature:', error);
         }
@@ -36,8 +33,8 @@ const SignatureManagement = () => {
                 placeholder="Enter data to sign"
                 rows="4"
             />
-            <button onClick={signData}>Sign Data</button>
-            <button onClick={verifySignature}>Verify Signature</button>
+            <button onClick={handleSignData}>Sign Data</button>
+            <button onClick={handleVerifySignature}>Verify Signature</button>
             {signature && <div><strong>Generated Signature:</strong> <code>{signature}</code></div>}
             {verificationResult && <div><strong>Verification Result:</strong> {verificationResult}</div>}
         </div>
