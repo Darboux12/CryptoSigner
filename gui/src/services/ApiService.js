@@ -3,8 +3,8 @@ import axios from 'axios';
 const API_BASE_URL = 'http://server:8080/signer';
 
 // Generowanie kluczy
-export const generateKeys = (alias, curveType) => {
-  return axios.post(`${API_BASE_URL}/key/generate`, { alias, curveType });
+export const generateKeys = (ApiKeyGenerationRequest) => {
+  return axios.post(`${API_BASE_URL}/key/generate`, ApiKeyGenerationRequest);
 };
 
 // Wyszukiwanie klucza po aliasie
@@ -27,36 +27,24 @@ export const getGenerateKeyStateByAlias = (alias) => {
   return axios.get(`${API_BASE_URL}/key/generate/state`, { params: { alias } });
 };
 
-// Podpisywanie danych
-export const signData = (data, signatureAlias, privateKey) => {
-  return axios.post(`${API_BASE_URL}/signature/sign`, { data, signatureAlias, privateKey });
+// Podpisywanie danych jako bajty
+export const signData = (ApiSignatureGenerationRequest) => {
+  return axios.post(`${API_BASE_URL}/signature/sign`, ApiSignatureGenerationRequest);
 };
 
-// Podpisywanie tekstu
-export const signText = (text, signatureAlias, privateKey) => {
-  return axios.post(`${API_BASE_URL}/signature/sign/text`, {
-    data: text,
-    signatureAlias,
-    privateKey
-  });
+// Podpisywanie danych jako tekst
+export const signText = (ApiSignatureGenerationRequestText) => {
+  return axios.post(`${API_BASE_URL}/signature/sign/text`, ApiSignatureGenerationRequestText);
 };
 
-// Weryfikacja podpisu danych
-export const verifySignature = (data, signature, publicKey) => {
-  return axios.post(`${API_BASE_URL}/signature/verify`, {
-    data,
-    signature,
-    publicKey
-  });
+// Weryfikacja podpisu danych jako bajty
+export const verifySignature = (ApiSignatureVerificationRequest) => {
+  return axios.post(`${API_BASE_URL}/signature/verify`, ApiSignatureVerificationRequest);
 };
 
-// Weryfikacja podpisu tekstu
-export const verifyTextSignature = (text, signature, publicKey) => {
-  return axios.post(`${API_BASE_URL}/signature/verify/text`, {
-    data: text,
-    signature,
-    publicKey
-  });
+// Weryfikacja podpisu danych jako tekst
+export const verifyTextSignature = (ApiSignatureVerificationRequestText) => {
+  return axios.post(`${API_BASE_URL}/signature/verify/text`, ApiSignatureVerificationRequestText);
 };
 
 // Pobieranie podpisu po aliasie
@@ -67,4 +55,14 @@ export const getSignatureByAlias = (alias) => {
 // Pobieranie podpisu po ID
 export const getSignatureById = (id) => {
   return axios.get(`${API_BASE_URL}/signature/find/id`, { params: { id } });
+};
+
+// Pobieranie stanu generacji podpisu przez ID
+export const getSignatureGenerationStateById = (id) => {
+  return axios.get(`${API_BASE_URL}/signature/generate/state/id`, { params: { id } });
+};
+
+// Pobieranie stanu generacji podpisu przez alias
+export const getSignatureGenerationStateByAlias = (alias) => {
+  return axios.get(`${API_BASE_URL}/signature/generate/state`, { params: { alias } });
 };
