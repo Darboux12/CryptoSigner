@@ -16,12 +16,12 @@ ECDSA, czyli Elliptic Curve Digital Signature Algorithm, to algorytm wykorzystuj
 ## Technologie
 Projekt został zaimplementowany z użyciem następujących technologii:
 - **Frontend**: React.js dla interaktywnego interfejsu użytkownika.
-- **Backend**: Java z frameworkiem Spring Boot, zapewniający solidne wsparcie dla tworzenia REST API.
-- **Baza danych**: PostgreSQL, zapewniająca niezawodne przechowywanie danych z transakcjami.
+- **Backend**: Java z frameworkiem Spring Boot, zapewniający wsparcie dla tworzenia REST API.
+- **Baza danych**: PostgreSQL, zapewniająca przechowywanie danych z transakcjami.
 
 ## Wdrażanie
 Aplikacja może być wdrażana lokalnie lub na serwerach chmurowych z użyciem kontenerów Docker, co zapewnia łatwą skalowalność i zarządzanie środowiskiem.
 
 ## Licencja
-Projekt jest udostępniony na licencji MIT, co umożliwia szerokie wykorzystanie i modyfikację kodu źródłowego.
+Projekt jest udostępniony na licencji MIT.
 
