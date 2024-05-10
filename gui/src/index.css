@@ -1,11 +1,11 @@
-/* Resetowanie marginesów i paddingów */
+/* Reset margins and paddings */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Ustawienie fontów i kolorów tła dla całej strony */
+/* Set fonts and background colors for the entire page */
 body {
   font-family: 'Arial', sans-serif;
   background-color: #f4f4f4;
@@ -13,13 +13,13 @@ body {
   line-height: 1.6;
 }
 
-/* Responsywne obrazy */
+/* Responsive images */
 img {
   max-width: 100%;
   height: auto;
 }
 
-/* Podstawowe style dla linków */
+/* Basic styles for links */
 a {
   color: #0077cc;
   text-decoration: none;

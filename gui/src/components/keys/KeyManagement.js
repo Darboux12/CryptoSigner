@@ -4,12 +4,12 @@ const KeyManagement = () => {
   const [alias, setAlias] = useState('');
 
   const handleGenerateKey = async () => {
-    // Placeholder for key generation logic
+    /* Placeholder for key generation logic */
     console.log('Generating key for alias:', alias);
   };
 
   const handleFindKeyByAlias = async () => {
-    // Placeholder for finding key logic
+    /* Placeholder for finding key logic */
     console.log('Finding key for alias:', alias);
   };
 

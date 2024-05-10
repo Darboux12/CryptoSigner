@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Login.css'; // Ensure you have CSS specific for login if needed
+import './Login.css'; 
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -16,7 +16,7 @@ const Login = () => {
         password
       });
       console.log('Login successful:', response.data);
-      // Navigate to dashboard or set user session
+      /* Navigate to dashboard or set user session */
     } catch (error) {
       console.error('Login failed:', error);
       setError('Failed to login');

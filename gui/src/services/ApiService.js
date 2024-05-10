@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-// Konfiguracja globalna axios
+/* axios global configuration */
 const api = axios.create({
   baseURL: 'http://server:8080/signer'
 });
 
-// Funkcja generująca klucze
+/* Key generator function */
 export const generateKeys = async (ApiKeyGenerationRequest) => {
   try {
     const response = await api.post('/key/generate', ApiKeyGenerationRequest);
@@ -16,7 +16,7 @@ export const generateKeys = async (ApiKeyGenerationRequest) => {
   }
 };
 
-// Funkcja wyszukująca klucz po aliasie
+/* Function that searches for a key by alias */
 export const getKeyByAlias = async (alias) => {
   try {
     const response = await api.get('/key/find', { params: { alias } });
@@ -27,7 +27,7 @@ export const getKeyByAlias = async (alias) => {
   }
 };
 
-// Funkcja wyszukująca klucz po ID
+/* Function that searches for a key by ID */
 export const getKeyById = async (id) => {
   try {
     const response = await api.get('/key/find/id', { params: { id } });
@@ -38,7 +38,7 @@ export const getKeyById = async (id) => {
   }
 };
 
-// Podpisywanie danych
+/* Data signing */
 export const signData = async (ApiSignatureGenerationRequest) => {
   try {
     const response = await api.post('/signature/sign', ApiSignatureGenerationRequest);
@@ -49,7 +49,7 @@ export const signData = async (ApiSignatureGenerationRequest) => {
   }
 };
 
-// Podpisywanie danych jako tekst
+/* Signing data as text */
 export const signText = async (ApiSignatureGenerationRequestText) => {
   try {
     const response = await api.post('/signature/sign/text', ApiSignatureGenerationRequestText);
@@ -60,7 +60,7 @@ export const signText = async (ApiSignatureGenerationRequestText) => {
   }
 };
 
-// Weryfikacja podpisu danych
+/* Data signature verification */
 export const verifySignature = async (ApiSignatureVerificationRequest) => {
   try {
     const response = await api.post('/signature/verify', ApiSignatureVerificationRequest);
@@ -71,7 +71,7 @@ export const verifySignature = async (ApiSignatureVerificationRequest) => {
   }
 };
 
-// Weryfikacja podpisu danych jako tekst
+/* Data signature verification as text */
 export const verifyTextSignature = async (ApiSignatureVerificationRequestText) => {
   try {
     const response = await api.post('/signature/verify/text', ApiSignatureVerificationRequestText);
