@@ -2,13 +2,16 @@
 .App {
   text-align: center;
   padding: 20px;
+  background-color: #121212; /* Dark theme for better contrast */
+  color: #e0e0e0; /* Light text for readability */
+  min-height: 100vh; /* Ensures the app stretches full screen height */
 }
 
 /* Stylizacja nawigacji */
 nav {
-  background-color: #0077cc;
+  background-color: #333333; /* Darker grey for nav, fitting the theme */
   padding: 10px 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* Enhanced shadow for depth */
 }
 
 nav ul {
@@ -25,24 +28,22 @@ nav ul li {
 
 nav a {
   text-decoration: none;
-  color: white;
+  color: #00ff00; /* Neon green for a cyber look */
   font-weight: bold;
   padding: 10px 20px;
-  margin: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  text-align: center;
 }
 
 nav a:hover {
-  color: #ffdd55;
-  background-color: #005fa3;
+  background-color: #222; /* Slightly lighter background on hover */
+  color: #ffffff;
 }
 
 /* Styl dla nagłówków */
 h1, h2, h3 {
-  color: #333;
+  color: #ffffff; /* White color for headers to match the theme */
 }
 
 /* Stylizacja formularzy */
@@ -52,31 +53,34 @@ input[type='text'], input[type='password'], textarea {
   margin: 10px 0;
   display: inline-block;
   border: 1px solid #ccc;
+  background-color: #333; /* Dark background for inputs */
+  color: #fff; /* Light text color for readability */
   border-radius: 4px;
-  box-sizing: border-box;
 }
 
 input[type='text']:focus, input[type='password']:focus, textarea:focus {
-  border-color: #0077cc;
-  box-shadow: 0 0 8px rgba(0,119,204,0.3);
+  border-color: #00ff00;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.3); /* Neon green focus highlight */
 }
 
 /* Stylizacja przycisków */
 button {
-  background-color: #0077cc;
-  color: white;
+  background-color: #0077cc; /* Consistent button color */
+  color: #ffffff;
   padding: 10px 20px;
   margin: 10px 0;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Adds depth to buttons */
 }
 
 button:hover {
-  background-color: #005fa3;
+  background-color: #005fa3; /* Darker blue on hover for interaction feedback */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Enhanced shadow for hover effect */
 }
 
-/* Layout responsywny dla różnych rozmiarów ekranów */
+/* Responsive layout adjustments for better usability on larger screens */
 @media (min-width: 600px) {
   .container {
     width: 80%;
