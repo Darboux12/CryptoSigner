@@ -1,17 +1,24 @@
 /* Styl głównego kontenera aplikacji */
 .App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
   text-align: center;
+  min-height: 100vh; 
   padding: 20px;
-  background-color: #121212; /* Dark theme for better contrast */
-  color: #e0e0e0; /* Light text for readability */
-  min-height: 100vh; /* Ensures the app stretches full screen height */
+  background-color: #121212; 
+  color: #e0e0e0; 
 }
 
 /* Stylizacja nawigacji */
 nav {
-  background-color: #333333; /* Darker grey for nav, fitting the theme */
+  position: absolute; 
+  top: 0;
+  width: 100%; 
+  background-color: #333333; 
   padding: 10px 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); /* Enhanced shadow for depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6); 
 }
 
 nav ul {
@@ -28,7 +35,7 @@ nav ul li {
 
 nav a {
   text-decoration: none;
-  color: #00ff00; /* Neon green for a cyber look */
+  color: #00ff00; 
   font-weight: bold;
   padding: 10px 20px;
   border: none;
@@ -37,71 +44,51 @@ nav a {
 }
 
 nav a:hover {
-  background-color: #222; /* Slightly lighter background on hover */
+  background-color: #222; 
   color: #ffffff;
 }
 
-/* Styl dla nagłówków */
-h1, h2, h3 {
-  color: #ffffff; /* White color for headers to match the theme */
-}
-
-/* Stylizacja formularzy */
-input[type='text'], input[type='password'], textarea {
-  width: 100%;
-  padding: 8px;
-  margin: 10px 0;
-  display: inline-block;
+/* General Styles for Inputs and Buttons */
+input[type='text'], input[type='password'], textarea, button {
+  padding: 12px 20px;
+  margin: 8px 10px; /* Added horizontal margin for better separation */
   border: 1px solid #ccc;
-  background-color: #333; /* Dark background for inputs */
-  color: #fff; /* Light text color for readability */
   border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #282c34; /* Consistent dark theme for inputs and buttons */
+  color: #fff; /* White text for better readability */
 }
 
-input[type='text']:focus, input[type='password']:focus, textarea:focus {
-  border-color: #00ff00;
-  box-shadow: 0 0 8px rgba(0, 255, 0, 0.3); /* Neon green focus highlight */
-}
-
-/* Stylizacja przycisków */
+/* Enhanced Button Styling */
 button {
-  background-color: #0077cc; /* Consistent button color */
-  color: #ffffff;
-  padding: 10px 20px;
-  margin: 10px 0;
+  background-color: #4CAF50; /* Green Background */
+  color: white;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Adds depth to buttons */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Adding subtle shadow for depth */
 }
 
 button:hover {
-  background-color: #005fa3; /* Darker blue on hover for interaction feedback */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7); /* Enhanced shadow for hover effect */
+  background-color: #45a049; /* Darker green on hover */
 }
 
-/* Responsive layout adjustments for better usability on larger screens */
-@media (min-width: 600px) {
-  .container {
-    width: 80%;
-    margin: auto;
-  }
+/* Key Management Section Styling */
+.key-management, .signature-management {
+  background-color: #282c34; /* Dark background for section */
+  padding: 20px;
+  color: white;
+  text-align: center;
+  border-radius: 8px; /* Rounded corners for the section containers */
 }
 
+.key-management h2, .signature-management h2 {
+  margin-bottom: 20px;
+}
+
+/* Responsive adjustments */
 @media (min-width: 768px) {
-  .container {
-    width: 75%;
-  }
-}
-
-@media (min-width: 992px) {
-  .container {
-    width: 70%;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    width: 65%;
+  .key-management, .signature-management {
+    width: 50%;
+    margin: 40px auto; /* Center and add space around */
   }
 }

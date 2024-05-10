@@ -10,18 +10,20 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Navigation /> {/* Navi w aplikacji */}
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/manage-keys" element={<KeyManagement />} />
-          <Route path="/manage-signatures" element={<SignatureManagement />} />
-          <Route path="/" element={
-            <div>
-              <h1>Welcome to the Crypto Management System</h1>
-              <img src="/logo1.png" alt="Welcome" style={{ width: '100%', maxWidth: '600px', height: 'auto' }} />
-            </div>
-          } />
-        </Routes>
+        <Navigation /> {/* Navigation remains at the top */}
+        <div className="content"> {/* This div wraps all other content */}
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/manage-keys" element={<KeyManagement />} />
+            <Route path="/manage-signatures" element={<SignatureManagement />} />
+            <Route path="/" element={
+              <div>
+                <h1>Welcome to the Crypto Management System</h1>
+                <img src="/logo1.png" alt="Welcome" style={{ width: '100%', maxWidth: '600px', height: 'auto' }} />
+              </div>
+            } />
+          </Routes>
+        </div>
       </div>
     </Router>
   );
