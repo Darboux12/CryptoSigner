@@ -17,6 +17,8 @@ const SignatureVerification = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [verifySuccess, setVerifySuccess] = useState(false);
     const [verifyError, setVerifyError] = useState('');
+    const [keyError, setKeyError] = useState('');
+    const [signatureError, setSignatureError] = useState('');
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
@@ -38,6 +40,59 @@ const SignatureVerification = () => {
         setSignature(event.target.value);
     };
 
+    const extractKeyFromPem = async (file, keyType) => {
+        const readFileAsText = (file) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+
+                reader.onload = (event) => {
+                    resolve(event.target.result);
+                };
+
+                reader.onerror = (error) => {
+                    reject(error);
+                };
+
+                reader.readAsText(file);
+            });
+        };
+
+        const extractKey = (pemContent, keyType) => {
+            const publicKeyHeader = '-----BEGIN PUBLIC KEY-----';
+            const publicKeyFooter = '-----END PUBLIC KEY-----';
+            const signatureHeader = '-----BEGIN SIGNATURE-----';
+            const signatureFooter = '-----END SIGNATURE-----';
+
+            let start, end;
+
+            if (keyType === 'publicKey') {
+                if (pemContent.includes(publicKeyHeader)) {
+                    start = pemContent.indexOf(publicKeyHeader) + publicKeyHeader.length;
+                    end = pemContent.indexOf(publicKeyFooter, start);
+                } else {
+                    throw new Error('Invalid PEM file format for public key');
+                }
+            } else if (keyType === 'signature') {
+                if (pemContent.includes(signatureHeader)) {
+                    start = pemContent.indexOf(signatureHeader) + signatureHeader.length;
+                    end = pemContent.indexOf(signatureFooter, start);
+                } else {
+                    throw new Error('Invalid PEM file format for signature');
+                }
+            }
+
+            const key = pemContent.substring(start, end).replace(/\s+/g, '');
+            return key;
+        };
+
+        try {
+            const pemContent = await readFileAsText(file);
+            return extractKey(pemContent, keyType);
+        } catch (error) {
+            throw new Error('Error reading or extracting key from file: ' + error.message);
+        }
+    };
+
     const fileToBase64 = (file) => new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -52,11 +107,37 @@ const SignatureVerification = () => {
 
         setIsSubmitting(true);
         setVerifyError('');
+        setKeyError('');
+        setSignatureError('');
 
         try {
             const encodedFile = await fileToBase64(file);
-            const publicKeyToSend = inputPublicKeyType === 'file' && publicKeyFile ? await fileToBase64(publicKeyFile) : publicKey;
-            const signatureToSend = inputSignatureType === 'file' && signatureFile ? await fileToBase64(signatureFile) : signature;
+            let publicKeyToSend;
+            let signatureToSend;
+
+            if (inputPublicKeyType === 'file' && publicKeyFile) {
+                try {
+                    publicKeyToSend = await extractKeyFromPem(publicKeyFile, 'publicKey');
+                } catch (error) {
+                    setKeyError(error.message);
+                    setIsSubmitting(false);
+                    return;
+                }
+            } else {
+                publicKeyToSend = publicKey;
+            }
+
+            if (inputSignatureType === 'file' && signatureFile) {
+                try {
+                    signatureToSend = await extractKeyFromPem(signatureFile, 'signature');
+                } catch (error) {
+                    setSignatureError(error.message);
+                    setIsSubmitting(false);
+                    return;
+                }
+            } else {
+                signatureToSend = signature;
+            }
 
             const data = {
                 fileName: file.name,
@@ -121,6 +202,9 @@ const SignatureVerification = () => {
                                 <Form.Control type="file" onChange={handlePublicKeyFileChange} />
                             </Form.Group>
                         )}
+                        {keyError && (
+                            <Alert variant="danger" className="mt-2">{keyError}</Alert>
+                        )}
                         <Form.Group className="mb-4 fs-4">
                             <Form.Label className="fs-4">Signature Input Method:</Form.Label>
                             <Form.Check
@@ -151,6 +235,9 @@ const SignatureVerification = () => {
                                 <Form.Label className="fs-4">Upload Signature File:</Form.Label>
                                 <Form.Control type="file" onChange={handleSignatureFileChange} />
                             </Form.Group>
+                        )}
+                        {signatureError && (
+                            <Alert variant="danger" className="mt-2">{signatureError}</Alert>
                         )}
                         <Button variant="success" className="w-100 fs-4" onClick={handleVerifySignature} disabled={isSubmitting || !file || !(publicKey || publicKeyFile) || !(signature || signatureFile)}>
                             Verify Signature

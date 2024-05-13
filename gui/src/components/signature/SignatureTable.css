@@ -1,0 +1,10 @@
+.cell-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon-container {
+    display: flex;
+    gap: 5px;
+}
