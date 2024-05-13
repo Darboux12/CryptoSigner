@@ -1,0 +1,7 @@
+/* w pliku JcaNavbar.css */
+@media (max-width: 768px) {
+    .dropdown-item-mobile {
+        font-size: 1.25rem; /* Zwiększenie rozmiaru tekstu */
+        text-align: center; /* Wyśrodkowanie tekstu */
+    }
+}

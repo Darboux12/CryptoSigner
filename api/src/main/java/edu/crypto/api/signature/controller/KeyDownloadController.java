@@ -23,7 +23,7 @@ public class KeyDownloadController {
     }
 
     @GetMapping("/download/public")
-    public ResponseEntity<ByteArrayResource> downloadPublicKey(@RequestParam("alias") String alias) throws NoSuchAlgorithmException {
+    public ResponseEntity<ByteArrayResource> downloadPublicKeyByAlias(@RequestParam("alias") String alias) throws NoSuchAlgorithmException {
         String publicKey = exportService.exportPublicKeyPKCS8ByAlias(alias);
         String header = "attachment; filename=\"" + alias + ".pem\"";
         return ResponseEntity.ok()
@@ -33,7 +33,7 @@ public class KeyDownloadController {
     }
 
     @GetMapping("/download/private")
-    public ResponseEntity<ByteArrayResource> downloadPrivateKey(@RequestParam("alias") String alias) throws NoSuchAlgorithmException {
+    public ResponseEntity<ByteArrayResource> downloadPrivateKeyByAlias(@RequestParam("alias") String alias) throws NoSuchAlgorithmException {
         String privateKey = exportService.exportPrivateKeyPKCS8ByAlias(alias);
         String header = "attachment; filename=\"" + alias + ".pem\"";
         return ResponseEntity.ok()

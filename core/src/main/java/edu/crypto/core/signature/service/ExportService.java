@@ -24,9 +24,16 @@ public class ExportService {
     public String exportPublicKeyPKCS8ByAlias(String alias) {
         var keyPair = keyPairDao.findByAlias(alias).orElseThrow(() -> new EntityNotFoundException("KeyPair", "alias"));
         return exportPublicKeyX509(keyPair.getPublicKey());
+    }
 
+    public String exportPrivateKeyPKCS8ById(Long id) {
+        var keyPair = keyPairDao.findById(id).orElseThrow(() -> new EntityNotFoundException("KeyPair", "id"));
+        return exportPrivateKeyPKCS8(keyPair.getPrivateKey());
+    }
 
-
+    public String exportPublicKeyPKCS8ById(Long id) {
+        var keyPair = keyPairDao.findById(id).orElseThrow(() -> new EntityNotFoundException("KeyPair", "id"));
+        return exportPublicKeyX509(keyPair.getPublicKey());
     }
 
     private String exportPrivateKeyPKCS8(String privateKey) {

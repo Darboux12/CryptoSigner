@@ -11,4 +11,6 @@ public interface CryptoSignatureDao extends JpaRepository<CryptoSignature, Long>
 
     Optional<CryptoSignature> findByAlias(String alias);
 
+    boolean existsByAlias(String alias);
+
 }

@@ -57,7 +57,7 @@ public class ECDSAService {
             System.out.println("Signature: " + java.util.Base64.getEncoder().encodeToString(signature));
 
             // Weryfikacja podpisu
-            boolean isCorrect = generator.verifySignature(messageBytes, signature, publicKey);
+            boolean isCorrect = generator.verifySignature("Test messsage".getBytes(), signature, publicKey);
             System.out.println("Signature verified: " + isCorrect);
         } catch (Exception e) {
             e.printStackTrace();

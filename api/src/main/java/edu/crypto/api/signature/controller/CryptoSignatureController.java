@@ -84,6 +84,18 @@ public class CryptoSignatureController {
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping("delete")
+    public ResponseEntity<String> deleteKeyPairById(@RequestParam("id") Long id) {
+        signatureService.deleteSignatureById(id);
+        return ResponseEntity.ok("Signature successfully deleted");
+    }
+
+    @GetMapping("exist/alias")
+    public ResponseEntity<Boolean> existSignatureByAlias(@RequestParam("alias") String alias) {
+        var response = signatureService.existSignatureByAlias(alias);
+        return ResponseEntity.ok(response);
+    }
+
     private SignatureGenerationRequest mapApiSignatureToServiceRequest(ApiSignatureGenerationRequest request) throws NoSuchAlgorithmException, InvalidKeySpecException {
         return SignatureGenerationRequest
                 .builder()

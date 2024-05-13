@@ -6,7 +6,7 @@ public enum ECCurveType {
     SECP521R1("secp521r1"),
     SECP256K1("secp256k1");
 
-    private String curveName;
+    private final String curveName;
 
     ECCurveType(String curveName) {
         this.curveName = curveName;

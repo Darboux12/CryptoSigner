@@ -1,6 +1,7 @@
 package edu.crypto.core.user;
 
 import edu.crypto.core.signature.mapper.SignatureMapper;
+import edu.crypto.core.signature.model.dto.CryptoKeyPairDto;
 import edu.crypto.core.signature.model.dto.CryptoSignatureDto;
 import edu.crypto.core.validation.EntityNotFoundException;
 import edu.crypto.data.signature.domain.CryptoKeyPair;
@@ -36,6 +37,16 @@ public class UserQueryService {
                 .map(CryptoKeyPair::getSignatures)
                 .flatMap(Collection::stream)
                 .map(SignatureMapper::mapSignatureToDto)
+                .collect(Collectors.toList());
+    }
+
+    public Iterable<CryptoKeyPairDto> findUserAllKeys(String username) {
+        return userDao
+                .findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User", "username"))
+                .getKeyPairs()
+                .stream()
+                .map(SignatureMapper::mapKeyPairToDto)
                 .collect(Collectors.toList());
     }
 }

@@ -13,14 +13,16 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SignatureMapper {
 
-    public static String mapSignatureToSafeString(byte[] signature) throws Exception {
+    public static String mapSignatureToSafeString(byte[] signature) {
         return Base64.getEncoder().encodeToString(signature);
     }
 
-    public static byte[] mapSafeStringToSignature(String signature) throws Exception {
+    public static byte[] mapSafeStringToSignature(String signature) {
         return Base64.getDecoder().decode(signature);
     }
 
@@ -42,6 +44,14 @@ public class SignatureMapper {
         return KeyFactory.getInstance("EC").generatePublic(new X509EncodedKeySpec(publicKeyBytes));
     }
 
+    public static Set<CryptoSignatureDto> mapSignatureToDtos(Set<CryptoSignature> signature) {
+        return signature.stream().map(SignatureMapper::mapSignatureToDto).collect(Collectors.toSet());
+    }
+
+    public static Set<CryptoKeyPairDto> mapKeyPairToDtos(Set<CryptoKeyPair> keyPairs) {
+        return keyPairs.stream().map(SignatureMapper::mapKeyPairToDto).collect(Collectors.toSet());
+    }
+
     public static CryptoSignatureDto mapSignatureToDto(CryptoSignature signature) {
         return CryptoSignatureDto
                 .builder()
@@ -52,6 +62,9 @@ public class SignatureMapper {
                 .metadata(signature.getMetadata())
                 .privateKey(signature.getKeyPair().getPrivateKey())
                 .publicKey(signature.getKeyPair().getPublicKey())
+                .date(signature.getGenerationDate())
+                .state(signature.getState().name())
+                .keyPairAlias(signature.getKeyPair().getAlias())
                 .build();
     }
 
@@ -63,6 +76,8 @@ public class SignatureMapper {
                 .author(keyPair.getAuthor().getUsername())
                 .publicKey(keyPair.getPublicKey())
                 .privateKey(keyPair.getPrivateKey())
+                .date(keyPair.getGenerationDate())
+                .state(keyPair.getState().name())
                 .build();
     }
 

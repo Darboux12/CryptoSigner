@@ -3,6 +3,7 @@ package edu.crypto.core.signature.service;
 import edu.crypto.core.signature.common.KeyGenerationStartDto;
 import edu.crypto.core.signature.common.SignatureGenerationStartDto;
 import edu.crypto.core.signature.mapper.SignatureMapper;
+import edu.crypto.core.signature.model.common.ECCurveType;
 import edu.crypto.core.signature.model.dto.*;
 import edu.crypto.core.signature.model.event.KeyGenerationEvent;
 import edu.crypto.core.signature.model.event.SignatureGenerationEvent;
@@ -17,6 +18,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -137,4 +142,31 @@ public class SignatureService {
         );
     }
 
+    public Set<String> findAllCurveType() {
+        return Arrays
+                .stream(ECCurveType.values())
+                .map(ECCurveType::getCurveName)
+                .map(String::toUpperCase)
+                .collect(Collectors.toSet());
+    }
+
+    public boolean existKeyByAlias(String alias) {
+        return keyPairDao.existsByAlias(alias);
+    }
+
+    public boolean existSignatureByAlias(String alias) {
+        return signatureDao.existsByAlias(alias);
+    }
+
+    public void deleteKeyPairByAlias(String alias) {
+        keyPairDao.deleteByAlias(alias);
+    }
+
+    public void deleteKeyPairById(Long id) {
+        keyPairDao.deleteById(id);
+    }
+
+    public void deleteSignatureById(Long id) {
+        signatureDao.deleteById(id);
+    }
 }

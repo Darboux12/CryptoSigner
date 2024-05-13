@@ -26,7 +26,7 @@ public class CryptoKeyPair {
     @Column(name = "generation_date", nullable = false)
     private LocalDateTime generationDate = LocalDateTime.now();
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String alias;
 
     @Column()
@@ -35,7 +35,7 @@ public class CryptoKeyPair {
     @Column()
     private String privateKey;
 
-    @OneToMany(mappedBy="keyPair", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy="keyPair", orphanRemoval = true, cascade = CascadeType.ALL)
     private Set<CryptoSignature> signatures = new HashSet<>();
 
     @Column(nullable = false)

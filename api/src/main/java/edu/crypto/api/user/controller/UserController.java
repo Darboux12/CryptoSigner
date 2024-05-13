@@ -4,6 +4,7 @@ import edu.crypto.api.user.mapper.UserMapper;
 import edu.crypto.api.user.model.SignUpRequest;
 import edu.crypto.api.user.model.SignUpResponse;
 import edu.crypto.core.security.util.JwtTokenUtil;
+import edu.crypto.core.signature.model.dto.CryptoKeyPairDto;
 import edu.crypto.core.signature.model.dto.CryptoSignatureDto;
 import edu.crypto.core.user.UserQueryService;
 import edu.crypto.core.user.UserResponse;
@@ -47,4 +48,12 @@ public class UserController {
         String username = jwtTokenUtil.getUsernameFromToken(token);
         return ResponseEntity.ok(userQueryService.findUserAllSignatures(username));
     }
+
+    @GetMapping("keys")
+    public ResponseEntity<Iterable<CryptoKeyPairDto>> findUserAllKeys(HttpServletRequest request) {
+        String token = jwtTokenUtil.getTokenFromCookie(request);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        return ResponseEntity.ok(userQueryService.findUserAllKeys(username));
+    }
+
 }

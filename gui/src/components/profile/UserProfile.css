@@ -1,0 +1,15 @@
+.user-profile-container {
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+}
+
+.user-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    object-fit: cover; /* Aby obraz był dobrze wyświetlany w okręgu */
+}
+
+/* Dalsze style mogą być dodane tutaj, aby dopasować wygląd do reszty aplikacji */
