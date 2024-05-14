@@ -1,4 +1,4 @@
-const serverURL = 'http://localhost:8080';
+export const serverURL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 
 export const addUser = async (userData) => {
 
@@ -74,62 +74,6 @@ export const getUserData = async () => {
     }
 };
 
-export const sendVulnerabilityScan = async (groupId, artifactId, version) => {
-
-    const jsonObject = {
-        groupId: groupId,
-        artifactId: artifactId,
-        version: version
-    };
-
-    const json = JSON.stringify(jsonObject);
-
-    console.log("JSON: " + json);
-
-    try {
-        const response = await fetch(`${serverURL}/signer/vulnerability/test`, {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(jsonObject)
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("Error during authentication:", errorData);
-            throw new Error(errorData.message || 'Authentication failed');
-        }
-
-        return await response.json(); // Zwraca otrzymany token JWT
-    } catch (error) {
-        console.error("Network error:", error);
-        throw error; // Przekazuje błąd do dalszej obsługi
-    }
-};
-
-export const getVulnerabilityScanDetails = async (scanId) => {
-
-    try {
-        const response = await fetch(`${serverURL}/signer/vulnerability/test/result?id=` + scanId, {
-            method: 'GET',
-            credentials: 'include',
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("Error during authentication:", errorData);
-            throw new Error(errorData.message || 'Authentication failed');
-        }
-
-        return await response.json(); // Zwraca otrzymany token JWT
-    } catch (error) {
-        console.error("Network error:", error);
-        throw error; // Przekazuje błąd do dalszej obsługi
-    }
-};
-
 export const sendKeyGenerationRequest = async (alias, selectedCurveType) => {
 
     const jsonObject = {
@@ -163,10 +107,9 @@ export const sendKeyGenerationRequest = async (alias, selectedCurveType) => {
 };
 
 export const sendSignatureRequest = async (jsonData) => {
-    const serverURL = 'http://localhost:8080/signer/signature/sign';
 
     try {
-        const response = await fetch(serverURL, {
+        const response = await fetch(`${serverURL}/signer/signature/sign`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -188,7 +131,6 @@ export const sendSignatureRequest = async (jsonData) => {
 };
 
 export const sendVerificationRequest = async ({ data, signature, publicKey }) => {
-    const serverURL = 'http://localhost:8080'; // Assuming your server is running locally on port 8080
     const endpoint = `${serverURL}/signer/signature/verify`; // Change this to your actual endpoint
 
     try {

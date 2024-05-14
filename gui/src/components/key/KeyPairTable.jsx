@@ -4,12 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy, faEye, faDownload, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import React from "react";
-import './KeyPairTable.css'; // Importing the custom CSS file
+import './KeyPairTable.css';
+import {serverURL} from "../api/apiService"; // Importing the custom CSS file
 
 export const KeyPairTable = ({ displayScanType, userKeys, handleDelete }) => {
 
     const downloadKey = async (keyType, alias) => {
-        const url = `http://localhost:8080/signer/key/download/${keyType}?alias=${alias}`;
+        const url = `${serverURL}/signer/key/download/${keyType}?alias=${alias}`;
         try {
             const response = await fetch(url, {
                 method: 'GET',

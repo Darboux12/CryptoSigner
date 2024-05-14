@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Form, Image, Spinner, Alert, ButtonGroup } from 'react-bootstrap';
 import KeyPairImage from "../../assets/Vulnerability.webp";
 import './KeyGeneration.css';
-import { sendKeyGenerationRequest } from "../api/apiService";
+import {sendKeyGenerationRequest, serverURL} from "../api/apiService";
 
 const KeyGeneration = () => {
-
-    const serverURL = 'http://localhost:8080';
 
     const [alias, setAlias] = useState('');
     const [curveTypes, setCurveTypes] = useState([]);

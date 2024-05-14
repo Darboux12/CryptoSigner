@@ -3,7 +3,7 @@ import { Button, Container, Row, Col, Table, ToggleButton, ToggleButtonGroup } f
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import './UserProfile.css';
-import { getUserData } from "../api/apiService";
+import {getUserData, serverURL} from "../api/apiService";
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 
@@ -56,8 +56,8 @@ const UserProfile = () => {
         }
 
         const endpoint = type === 'key'
-            ? `http://localhost:8080/signer/key/delete?id=${scanId}`
-            : `http://localhost:8080/signer/signature/delete?id=${scanId}`;
+            ? `${serverURL}/signer/key/delete?id=${scanId}`
+            : `${serverURL}/signer/signature/delete?id=${scanId}`;
 
         try {
             const response = await fetch(endpoint, { method: 'DELETE', credentials: 'include', // Dla żądań cross-origin

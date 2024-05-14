@@ -5,9 +5,7 @@ import './App.css';
 import {Home} from "./components/home/Home";
 import JcaNavbar from "./components/navbar/JcaNavbar";
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import VulnerabilityScanner from "./components/vulnerability/VulnerabilityScanner";
 import UserProfile from "./components/profile/UserProfile";
-import VulnerabilityScanResultsPage from "./components/vulnerability/VulnerabilityScanResultsPage";
 import KeyGeneration from "./components/key/KeyGeneration";
 import PrivateRoute from "./components/router/PrivateRoute";
 import SignatureGeneration from "./components/signature/SignatureGeneration";
@@ -19,11 +17,6 @@ function App() {
             <JcaNavbar/>
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/vulnerability" element={
-                    <PrivateRoute>
-                        <VulnerabilityScanner />
-                    </PrivateRoute>
-                } />
                 <Route path="/key/generation" element={
                     <PrivateRoute>
                         <KeyGeneration />

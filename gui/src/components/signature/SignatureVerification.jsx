@@ -5,7 +5,6 @@ import './SignatureVerification.css';
 import { sendVerificationRequest } from "../api/apiService";
 
 const SignatureVerification = () => {
-    const serverURL = 'http://localhost:8080';
 
     const [file, setFile] = useState(null);
     const [publicKey, setPublicKey] = useState('');

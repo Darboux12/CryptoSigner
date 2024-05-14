@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Alert, Button, Col, Container, Form, FormControl, Image, Row, Spinner } from 'react-bootstrap';
 import SignatureImage from "../../assets/Vulnerability.webp";
 import './SignatureGeneration.css';
-import { sendSignatureRequest } from "../api/apiService";
+import {sendSignatureRequest, serverURL} from "../api/apiService";
 
 const SignatureGeneration = () => {
-    const serverURL = 'http://localhost:8080';
 
     const [alias, setAlias] = useState('');
     const [file, setFile] = useState(null);

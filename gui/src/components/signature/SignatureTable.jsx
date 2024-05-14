@@ -4,11 +4,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy, faDownload, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import React from "react";
-import './SignatureTable.css'; // Importing the custom CSS file
+import './SignatureTable.css';
+import {serverURL} from "../api/apiService"; // Importing the custom CSS file
 
 export const SignatureTable = ({ displayScanType, userSignatures, handleDelete }) => {
     const downloadSignature = async (alias) => {
-        const url = `http://localhost:8080/signer/signature/download?alias=${alias}`;
+        const url = `${serverURL}/signer/signature/download?alias=${alias}`;
         try {
             const response = await fetch(url, {
                 method: 'GET',
@@ -19,7 +20,7 @@ export const SignatureTable = ({ displayScanType, userSignatures, handleDelete }
                 const downloadUrl = window.URL.createObjectURL(blob);
                 const link = document.createElement('a');
                 link.href = downloadUrl;
-                link.setAttribute('download', `signature_key_${alias}.pem`);
+                link.setAttribute('download', `signature_${alias}.pem`);
                 document.body.appendChild(link);
                 link.click();
                 link.parentNode.removeChild(link);
@@ -33,7 +34,7 @@ export const SignatureTable = ({ displayScanType, userSignatures, handleDelete }
     };
 
     const downloadKey = async (keyType, alias) => {
-        const url = `http://localhost:8080/signer/key/download/${keyType}?alias=${alias}`;
+        const url = `${serverURL}/signer/key/download/${keyType}?alias=${alias}`;
         try {
             const response = await fetch(url, {
                 method: 'GET',
