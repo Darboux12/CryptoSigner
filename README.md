@@ -30,7 +30,7 @@ The project is implemented using the following technologies:
 **macOS/Linux**
 1. Based on the .bat files, create a corresponding .sh files.
 2. Navigate to the project's root directory where the build.sh and deploy.sh scripts should be located.
-3. If not already executable, change the script permissions by running: ```ruby chmod +x build.sh deploy.sh```
+3. If not already executable, change the script permissions by running: `chmod +x build.sh deploy.sh`
 4. Execute the build script with the following command: `./build.sh`
 5. Run the deployment script: `./deploy.sh`
 6. Check that all services have started correctly by reviewing the output logs or accessing the application through a browser.
