@@ -1,5 +1,8 @@
 # CryptoSigner - An Application for Managing ECDSA Keys and Signatures
 
+## About ECDSA
+ECDSA, or Elliptic Curve Digital Signature Algorithm, utilizes elliptical curves for generating digital signatures. It is valued for its efficiency and security, making it a standard in many modern cryptographic applications, including blockchain technologies.
+
 ## Project Description
 The project involves the development of a secure web application that allows users to generate keys, sign data, and verify signatures using the ECDSA (Elliptic Curve Digital Signature Algorithm). The application features a user-friendly interface along with advanced security mechanisms.
 
@@ -10,8 +13,7 @@ The project involves the development of a secure web application that allows use
 - **Secure Key Storage**: Private keys are stored securely, protected from unauthorized access.
 - **Key Export and Import**: Functionality that allows the exporting and importing of keys in a secure format.
 
-## About ECDSA
-ECDSA, or Elliptic Curve Digital Signature Algorithm, utilizes elliptical curves for generating digital signatures. It is valued for its efficiency and security, making it a standard in many modern cryptographic applications, including blockchain technologies.
+(images/landingpage.png)
 
 ## Technology Stack
 The project is implemented using the following technologies:
